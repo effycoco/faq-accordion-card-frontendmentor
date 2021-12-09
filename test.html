@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>解决picture替换img后定位失效的问题</title>
+    <style>
+      .container {
+        position: relative;
+        margin: 160px auto;
+        border: solid 1px red;
+        width: 500px;
+        height: 600px;
+      }
+      picture {
+        position: absolute;
+        top: 10px;
+        left: 20px;
+        max-width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <!--picture替换img后不再相对于父元素（ relative positioned）定位，而是相对于根元素定位  -->
+    <div class="container">
+      <picture>
+        <source
+          media="(max-width:699px)"
+          srcset="images/illustration-woman-online-mobile.svg"
+          type="image/svg+xml"
+        />
+        <source
+          media="(min-width: 700px)"
+          srcset="images/illustration-woman-online-desktop.svg"
+          type="image/svg+xml"
+        />
+        <img src="images/illustration-woman-online-mobile.svg" alt="" />
+      </picture>
+    </div>
+  </body>
+</html>
