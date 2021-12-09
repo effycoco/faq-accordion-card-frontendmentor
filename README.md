@@ -1,94 +1,114 @@
-# Frontend Mentor - FAQ accordion card
+# Frontend Mentor - FAQ accordion card solution
 
+This is a solution to the [FAQ accordion card challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/faq-accordion-card-XlyjD0Oam).
 ![Design preview for the FAQ accordion card coding challenge](./design/desktop-preview.jpg)
 
-## Welcome! 👋
+## Table of contents
 
-Thanks for checking out this front-end coding challenge.
+- [Frontend Mentor - FAQ accordion card solution](#frontend-mentor---faq-accordion-card-solution)
+  - [Table of contents](#table-of-contents)
+  - [Overview](#overview)
+    - [The challenge](#the-challenge)
+  - [My process](#my-process)
+    - [Built with](#built-with)
+    - [What I learned](#what-i-learned)
+      - [accordion layout](#accordion-layout)
+      - [将自己的 stylesheet 放在最后](#将自己的-stylesheet-放在最后)
+      - [渐变色背景](#渐变色背景)
+      - [responsive images](#responsive-images)
+      - [利用 flex 实现一中一下布局](#利用-flex-实现一中一下布局)
+      - [其他](#其他)
+    - [Continued development](#continued-development)
+    - [Useful resources](#useful-resources)
+- [版本记录](#版本记录)
 
-[Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects.
+## Overview
 
-**To do this challenge, you need a basic understanding of HTML, CSS and JavaScript.**
+### The challenge
 
-## The challenge
-
-Your challenge is to build out this FAQ accordion card and get it looking as close to the design as possible.
-
-You can use any tools you like to help you complete the challenge. So if you've got something you'd like to practice, feel free to give it a go.
-
-Your users should be able to:
+Users should be able to:
 
 - View the optimal layout for the component depending on their device's screen size
 - See hover states for all interactive elements on the page
 - Hide/Show the answer to a question when the question is clicked
-- **Bonus**: Complete the challenge without using JavaScript
 
-Want some support on the challenge? [Join our Slack community](https://www.frontendmentor.io/slack) and ask questions in the **#help** channel.
+## My process
 
-## Where to find everything
+### Built with
 
-Your task is to build out the project to the designs inside the `/design` folder. You will find both a mobile and a desktop version of the design. 
+- Semantic HTML5 markup
+- CSS custom properties
+- Flexbox
 
-The designs are in JPG static format. Using JPGs will mean that you'll need to use your best judgment for styles such as `font-size`, `padding` and `margin`. 
+### What I learned
 
-If you would like the design files (we provide Sketch & Figma versions) to inspect the design in more detail, you can [subscribe as a PRO member](https://www.frontendmentor.io/pro).
+#### accordion layout
 
-You will find all the required assets in the `/images` folder. The assets are already optimized.
+[简化版](https://codepen.io/effycoco/pen/BawKQme)
+控制展开与否的 class 加在标题上而不是装标题+内容的容器上，效果是点击标题控制开关，点击内容不会误关。
 
-There is also a `style-guide.md` file containing the information you'll need, such as color palette and fonts.
+#### 将自己的 stylesheet 放在最后
 
-## Building your project
+否则容易被 fontawesome 等第三方库改写，选择器同等优先级下会使用放在最后的文件里的 style
 
-Feel free to use any workflow that you feel comfortable with. Below is a suggested process, but do not feel like you need to follow these steps:
+#### 渐变色背景
 
-1. Initialize your project as a public repository on [GitHub](https://github.com/). Creating a repo will make it easier to share your code with the community if you need help. If you're not sure how to do this, [have a read-through of this Try Git resource](https://try.github.io/).
-2. Configure your repository to publish your code to a web address. This will also be useful if you need some help during a challenge as you can share the URL for your project with your repo URL. There are a number of ways to do this, and we provide some recommendations below.
-3. Look through the designs to start planning out how you'll tackle the project. This step is crucial to help you think ahead for CSS classes to create reusable styles.
-4. Before adding any styles, structure your content with HTML. Writing your HTML first can help focus your attention on creating well-structured content.
-5. Write out the base styles for your project, including general content styles, such as `font-family` and `font-size`.
-6. Start adding styles to the top of the page and work down. Only move on to the next section once you're happy you've completed the area you're working on.
+参见[笔记](https://www.notion.so/Cha-11-backgrounds-shadows-and-blend-modes-f29036d69f424100a83ece43f84bb2f7)中的 issues
 
-## Deploying your project
+#### responsive images
 
-As mentioned above, there are many ways to host your project for free. Our recommend hosts are:
+mobile 和 desktop design 使用不同的图片如何处理？
+通过 picture 内添加多个 source 实现手机和桌面用不同的图片，`img`作后备方案。
 
-- [GitHub Pages](https://pages.github.com/)
-- [Vercel](https://vercel.com/)
-- [Netlify](https://www.netlify.com/)
+```html
+<picture>
+  <source media="(max-width: 799px)" srcset="elva-480w-close-portrait.jpg" />
+  <source media="(min-width: 800px)" srcset="elva-800w.jpg" />
+  <img src="elva-800w.jpg" alt="Chris standing up holding his daughter Elva" />
+</picture>
+```
 
-You can host your site using one of these solutions or any of our other trusted providers. [Read more about our recommended and trusted hosts](https://medium.com/frontend-mentor/frontend-mentor-trusted-hosting-providers-bf000dfebe).
+#### 利用 flex 实现一中一下布局
 
-## Create a custom `README.md`
+在 flex 中想使用`justify-self`的情况通常可以利用 auto margins 实现
 
-We strongly recommend overwriting this `README.md` with a custom one. We've provided a template inside the [`README-template.md`](./README-template.md) file in this starter code.
+#### 其他
 
-The template provides a guide for what to add. A custom `README` will help you explain your project and reflect on your learnings. Please feel free to edit our template as much as you like.
+1. body 高度是被内容撑开的，如果内容高度小于浏览器窗口高度，给 body 添加背景色会导致底下一截空白![](./images/screenshort-body-height.png)
+   解决：
+   ```css
+   html {
+     height: 100vh;
+   }
+   body {
+     height: 100vh;
+   }
+   ```
+2. 如何实现同一容器里的两个图片一个溢出隐藏，一个溢出可见？
+   ![](images/picture-overflow.png)
 
-Once you've added your information to the template, delete this file and rename the `README-template.md` file to `README.md`. That will make it show up as your repository's README file.
+### Continued development
 
-## Submitting your solution
+css:
+desktop-design 中的图片布局现在有点乱，~~其 containing block 是最外面的 container, 打算将 img-container 设为`position:relative`从而成为其 containing block,~~ 目前是试出来的，并且是个图片无法整体移动，有没有办法先调整好三个图片的相对位置，再调整整体的位置
 
-Submit your solution on the platform for the rest of the community to see. Follow our ["Complete guide to submitting solutions"](https://medium.com/frontend-mentor/a-complete-guide-to-submitting-solutions-on-frontend-mentor-ac6384162248) for tips on how to do this.
+js：
 
-Remember, if you're looking for feedback on your solution, be sure to ask questions when submitting it. The more specific and detailed you are with your questions, the higher the chance you'll get valuable feedback from the community.
+- 目前仅仅是点一下展开，再点一下关闭，通过 toggle "active" class 实现
+- 以后可以添加的特性：
+  - 点一下展开自身的同时关闭其他
+  - 点卡片外部关闭所有
 
-## Sharing your solution
+### Useful resources
 
-There are multiple places you can share your solution:
+- [如何让元素水平垂直居中](https://github.com/qianguyihao/Web/blob/master/03-CSS%E8%BF%9B%E9%98%B6/04-%E5%A6%82%E4%BD%95%E8%AE%A9%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%EF%BC%9F.md)
+- [响应式图片剖析](https://jakearchibald.com/2015/anatomy-of-responsive-images/)
 
-1. Share your solution page in the **#finished-projects** channel of the [Slack community](https://www.frontendmentor.io/slack). 
-2. Tweet [@frontendmentor](https://twitter.com/frontendmentor) and mention **@frontendmentor**, including the repo and live URLs in the tweet. We'd love to take a look at what you've built and help share it around.
-3. Share your solution on other social channels like LinkedIn.
-4. Blog about your experience building your project. Writing about your workflow, technical choices, and talking through your code is a brilliant way to reinforce what you've learned. Great platforms to write on are [dev.to](https://dev.to/), [Hashnode](https://hashnode.com/), and [CodeNewbie](https://community.codenewbie.org/).
+# 版本记录
 
-We provide templates to help you share your solution once you've submitted it on the platform. Please do edit them and include specific questions when you're looking for feedback. 
-
-The more specific you are with your questions the more likely it is that another member of the community will give you feedback.
-
-## Got feedback for us?
-
-We love receiving feedback! We're always looking to improve our challenges and our platform. So if you have anything you'd like to mention, please email hi[at]frontendmentor[dot]io.
-
-This challenge is completely free. Please share it with anyone who will find it useful for practice.
-
-**Have fun building!** 🚀
+- first commit.
+- second commit:
+  - 删除 footer, 调整 desktop-design 的字体大小
+  - 将 breakpoint 由 700px 改为 1000px
+  - 将投影图片作为容器背景图片显示，而不是作为容器内的 img 元素, 利用`background-position`调整位置
+  - 将 mailbox 图片移到 card container 外边，这样就可以让里面的图片 woman-illustration 溢出卡片的部分隐藏，mailbox 溢出卡片的部分显示。需要给 mailbox+card 加一个 wrapper,并设为 relative positioned，这样 mailbox 的位置是相对这个 wrapper 设置的，而不是相对浏览器视窗，就不会因为缩放窗口而挪位。
